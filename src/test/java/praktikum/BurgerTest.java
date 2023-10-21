@@ -37,4 +37,25 @@ public class BurgerTest {
         Mockito.verify(testBurger).removeIngredient(1);
     }
 
+    @Test
+    public void moveIngridientsPositiveTest(){
+        Burger testBurger = new Burger();
+        testBurger.addIngredient(ingredient);
+        testBurger.addIngredient(ingredient);
+        testBurger.moveIngredient(1,2);
+        Mockito.verify(testBurger).moveIngredient(1,2);
+    }
+
+    @Test
+    public void getPriceTest(){
+        Burger testBurger = new Burger();
+        testBurger.setBuns(bun);
+        testBurger.addIngredient(ingredient);
+        Mockito.when(bun.getPrice()).thenReturn(Constants.BUN_PRICE);
+        Mockito.when(ingredient.getPrice()).thenReturn(Constants.INGRIDIENT_PRICE);
+        var actualPrice= testBurger.getPrice();
+        var expectedPrice = Constants.BUN_PRICE*2+Constants.INGRIDIENT_PRICE;
+        Assert.assertEquals(expectedPrice, actualPrice, 0.5);
+    }
+
 }
