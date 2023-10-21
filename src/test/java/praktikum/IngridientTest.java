@@ -3,7 +3,7 @@ package praktikum;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class IngridientTets {
+public class IngridientTest {
     private IngredientType type;
     private  String name;
     private float price;
