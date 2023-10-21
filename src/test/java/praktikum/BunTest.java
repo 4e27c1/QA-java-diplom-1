@@ -5,19 +5,17 @@ import org.junit.Test;
 
 public class BunTest {
 
-    String name = "Кунжутная";
-    Float price = 7.99F;
     @Test
     public void getName(){
-        Bun testBun = new Bun(name, price);
+        Bun testBun = new Bun(Constants.BUN_NAME, Constants.BUN_PRICE);
         var actual = testBun.getName();
-        Assert.assertEquals(actual, name);
+        Assert.assertEquals(actual, Constants.BUN_NAME);
     }
 
     @Test
     public void getPrice(){
-        Bun testBun = new Bun(name, price);
+        Bun testBun = new Bun(Constants.BUN_NAME, Constants.BUN_PRICE);
         float actual = testBun.getPrice();
-        Assert.assertTrue(actual == price);
+        Assert.assertEquals(Constants.BUN_PRICE, actual, 0.0);
     }
 }
