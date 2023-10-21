@@ -5,20 +5,24 @@ import org.junit.Test;
 
 public class IngridientTest {
     private IngredientType type;
-    private  String name;
+    private String name;
     private float price;
 
+    public IngridientTest() {
+    }
+
     @Test
-    public void getName(){
+    public void getName() {
         Ingredient testIngredient = new Ingredient(type, name, price);
         var actual = testIngredient.getName();
         Assert.assertEquals(actual, name);
     }
+
     @Test
-    public void getPrice(){
+    public void getPrice() {
         Ingredient testIngredient = new Ingredient(type, name, price);
         float actual = testIngredient.getPrice();
-        Assert.assertTrue(actual == price);
+        Assert.assertEquals(actual, price, 0.0);
     }
 
     @Test

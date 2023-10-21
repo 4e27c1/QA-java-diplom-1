@@ -18,14 +18,15 @@ public class IngredientTypeTest {
     }
 
     @Parameterized.Parameters
-    public static Object[][]VariableTypes() {
+    public static Object[][] VariableTypes() {
         return new Object[][]{
                 {"SAUCE"},
                 {"FILLING"}
         };
     }
+
     @Test
-    public void setIngredientType(){
+    public void setIngredientType() {
         Assert.assertThat(IngredientType.valueOf(this.ingredientType), is(notNullValue()));
     }
 }
