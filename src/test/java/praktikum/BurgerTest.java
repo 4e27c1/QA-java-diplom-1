@@ -10,6 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.atLeastOnce;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -19,34 +21,42 @@ public class BurgerTest {
     @Mock
     Bun bun;
     @Mock
-    Ingredient ingredient;
+    private Ingredient ingredient;
+    @Mock
+    private Ingredient sauce;
+    @Mock
+    private Ingredient filling;
+    private Burger burger;
 
     @Test
     public void setBunsPositive() {
         Burger testBurger = new Burger();
         testBurger.setBuns(bun);
-        Assert.assertEquals(bun, testBurger.bun);
+        assertEquals(bun, testBurger.bun);
     }
 
     @Test
     public void addIngredientPositive() {
         testBurger.addIngredient(ingredient);
-        Assert.assertEquals(List.of(ingredient), testBurger.ingredients);
+        assertEquals(List.of(ingredient), testBurger.ingredients);
     }
 
     @Test
     public void removeIngredientPositive() {
-        testBurger.addIngredient(ingredient);
-        testBurger.addIngredient(ingredient);
+        testBurger.addIngredient(sauce);
+        testBurger.addIngredient(filling);
         testBurger.removeIngredient(1);
+        assertTrue(testBurger.ingredients.contains(sauce));
+        assertTrue(!(testBurger.ingredients.contains(filling)));
         Mockito.verify(testBurger, atLeastOnce()).removeIngredient(1);
     }
 
     @Test
     public void moveIngredientsPositiveTest() {
-        testBurger.addIngredient(ingredient);
-        testBurger.addIngredient(ingredient);
+        testBurger.addIngredient(sauce);
+        testBurger.addIngredient(filling);
         testBurger.moveIngredient(Constants.FIRST_INDEX, Constants.SECOND_INDEX);
+        assertEquals("Ингредиенты поменялись местами", sauce, testBurger.ingredients.get(Constants.SECOND_INDEX));
         Mockito.verify(testBurger).moveIngredient(Constants.FIRST_INDEX, Constants.SECOND_INDEX);
     }
 
@@ -58,7 +68,7 @@ public class BurgerTest {
         Mockito.when(ingredient.getPrice()).thenReturn(Constants.INGREDIENT_PRICE);
         var actualPrice = testBurger.getPrice();
         var expectedPrice = Constants.BUN_PRICE * 2 + Constants.INGREDIENT_PRICE;
-        Assert.assertEquals(expectedPrice, actualPrice, 0.5);
+        assertEquals(expectedPrice, actualPrice, 0.5);
     }
 
     @Test
@@ -71,6 +81,6 @@ public class BurgerTest {
         Mockito.when(ingredient.getName()).thenReturn(Constants.FILLING_NAME);
         Mockito.when(ingredient.getPrice()).thenReturn(Constants.INGREDIENT_PRICE);
         String actualReceipt = testBurger.getReceipt();
-        Assert.assertEquals(Constants.RECEIPT, actualReceipt);
+        assertEquals(Constants.RECEIPT, actualReceipt);
     }
 }
