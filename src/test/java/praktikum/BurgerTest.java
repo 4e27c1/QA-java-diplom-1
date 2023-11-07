@@ -10,8 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.atLeastOnce;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,9 +45,9 @@ public class BurgerTest {
         testBurger.addIngredient(sauce);
         testBurger.addIngredient(filling);
         testBurger.removeIngredient(1);
-        assertTrue(testBurger.ingredients.contains(sauce));
-        assertTrue(!(testBurger.ingredients.contains(filling)));
         Mockito.verify(testBurger, atLeastOnce()).removeIngredient(1);
+        assertTrue(testBurger.ingredients.contains(sauce));
+        assertFalse(testBurger.ingredients.contains(filling));
     }
 
     @Test
@@ -56,8 +55,8 @@ public class BurgerTest {
         testBurger.addIngredient(sauce);
         testBurger.addIngredient(filling);
         testBurger.moveIngredient(Constants.FIRST_INDEX, Constants.SECOND_INDEX);
-        assertEquals("Ингредиенты поменялись местами", sauce, testBurger.ingredients.get(Constants.SECOND_INDEX));
         Mockito.verify(testBurger).moveIngredient(Constants.FIRST_INDEX, Constants.SECOND_INDEX);
+        assertEquals("Ингредиенты поменялись местами", sauce, testBurger.ingredients.get(Constants.SECOND_INDEX));
     }
 
     @Test
